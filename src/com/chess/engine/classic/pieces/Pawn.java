@@ -11,9 +11,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public final class Pawn
-        extends Piece {
+public final class Pawn extends Piece {
 
+    /*  From the current piece's position, adding or subtracting these coordinates 
+        provides possible move positions, hence the name CANDIDATE_MOVE_COORDINATES
+    */
     private final static int[] CANDIDATE_MOVE_COORDINATES = {8, 16, 7, 9};
 
     public Pawn(final Alliance allegiance,
@@ -36,12 +38,15 @@ public final class Pawn
     public Collection<Move> calculateLegalMoves(final Board board) {
         final List<Move> legalMoves = new ArrayList<>();
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
-            int candidateDestinationCoordinate =
-                    this.piecePosition + (this.pieceAlliance.getDirection() * currentCandidateOffset);
+            int candidateDestinationCoordinate = this.piecePosition + (this.pieceAlliance.getDirection() * currentCandidateOffset);
+            // If destination is invalid, skip
             if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 continue;
             }
+
+            // If destination is not occupied
             if (currentCandidateOffset == 8 && board.getPiece(candidateDestinationCoordinate) == null) {
+                //
                 if (this.pieceAlliance.isPawnPromotionSquare(candidateDestinationCoordinate)) {
                     legalMoves.add(new PawnPromotion(
                             new PawnMove(board, this, candidateDestinationCoordinate), PieceUtils.INSTANCE.getMovedQueen(this.pieceAlliance, candidateDestinationCoordinate)));

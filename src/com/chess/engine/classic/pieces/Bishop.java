@@ -14,6 +14,9 @@ import java.util.List;
 
 public final class Bishop extends Piece {
 
+    /*  From the current piece's position, adding or subtracting these coordinates 
+        provides possible move positions, hence the name CANDIDATE_MOVE_COORDINATES
+    */
     private final static int[] CANDIDATE_MOVE_COORDINATES = {-9, -7, 7, 9};
 
     public Bishop(final Alliance alliance,
@@ -37,14 +40,19 @@ public final class Bishop extends Piece {
                     isEighthColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate)) {
                     break;
                 }
+                
                 candidateDestinationCoordinate += currentCandidateOffset;
+                
+                // Verify if destination coordinate is valid
                 if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                     final Piece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
+                    // If destination is not occupied
                     if (pieceAtDestination == null) {
                         legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                     }
                     else {
                         final Alliance pieceAlliance = pieceAtDestination.getPieceAllegiance();
+                        // If occupying piece is an enemy piece
                         if (this.pieceAlliance != pieceAlliance) {
                             legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
                                     pieceAtDestination));
