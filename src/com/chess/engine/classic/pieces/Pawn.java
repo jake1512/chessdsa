@@ -46,7 +46,7 @@ public final class Pawn extends Piece {
 
             // If destination is not occupied
             if (currentCandidateOffset == 8 && board.getPiece(candidateDestinationCoordinate) == null) {
-                //
+                // If pawn gets to the respective last square of the board/the pawn promotion square
                 if (this.pieceAlliance.isPawnPromotionSquare(candidateDestinationCoordinate)) {
                     legalMoves.add(new PawnPromotion(
                             new PawnMove(board, this, candidateDestinationCoordinate), PieceUtils.INSTANCE.getMovedQueen(this.pieceAlliance, candidateDestinationCoordinate)));
@@ -61,16 +61,19 @@ public final class Pawn extends Piece {
                     legalMoves.add(new PawnMove(board, this, candidateDestinationCoordinate));
                 }
             }
+            // Pawn move 2 steps forward
             else if (currentCandidateOffset == 16 && this.isFirstMove() &&
                     ((BoardUtils.INSTANCE.SECOND_ROW.get(this.piecePosition) && this.pieceAlliance.isBlack()) ||
                      (BoardUtils.INSTANCE.SEVENTH_ROW.get(this.piecePosition) && this.pieceAlliance.isWhite()))) {
                 final int behindCandidateDestinationCoordinate =
                         this.piecePosition + (this.pieceAlliance.getDirection() * 8);
-                if (board.getPiece(candidateDestinationCoordinate) == null &&
+                    // Verify if the destination tile and the tile behind it is unoccupied so that the pawn can make the move
+                    if (board.getPiece(candidateDestinationCoordinate) == null &&
                     board.getPiece(behindCandidateDestinationCoordinate) == null) {
                     legalMoves.add(new PawnJump(board, this, candidateDestinationCoordinate));
                 }
             }
+            // Pawn attack move
             else if (currentCandidateOffset == 7 &&
                     !((BoardUtils.INSTANCE.EIGHTH_COLUMN.get(this.piecePosition) && this.pieceAlliance.isWhite()) ||
                       (BoardUtils.INSTANCE.FIRST_COLUMN.get(this.piecePosition) && this.pieceAlliance.isBlack()))) {
@@ -102,6 +105,7 @@ public final class Pawn extends Piece {
                     }
                 }
             }
+            // Pawn attack move
             else if (currentCandidateOffset == 9 &&
                     !((BoardUtils.INSTANCE.FIRST_COLUMN.get(this.piecePosition) && this.pieceAlliance.isWhite()) ||
                       (BoardUtils.INSTANCE.EIGHTH_COLUMN.get(this.piecePosition) && this.pieceAlliance.isBlack()))) {
@@ -128,7 +132,11 @@ public final class Pawn extends Piece {
                                             board.getPiece(candidateDestinationCoordinate)));
                         }
                     }
-                } else if (board.getEnPassantPawn() != null && board.getEnPassantPawn().getPiecePosition() ==
+                }
+                // Pawn en passant move 
+                // (If a pawn jumps 2 steps forward and there is an enemy pawn next to it, 
+                // that pawn can be attacked by said enemy pawn)
+                else if (board.getEnPassantPawn() != null && board.getEnPassantPawn().getPiecePosition() ==
                         (this.piecePosition - (this.pieceAlliance.getOppositeDirection()))) {
                     final Piece pieceOnCandidate = board.getEnPassantPawn();
                     if (this.pieceAlliance != pieceOnCandidate.getPieceAllegiance()) {
