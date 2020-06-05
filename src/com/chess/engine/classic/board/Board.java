@@ -149,11 +149,13 @@ public final class Board {
         return builder.build();
     }
 
+    // Get legal moves of all pieces on the board of a player
     private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
         return pieces.stream().flatMap(piece -> piece.calculateLegalMoves(this).stream())
                       .collect(Collectors.toList());
     }
 
+    // Get active pieces on the board
     private static Collection<Piece> calculateActivePieces(final Builder builder,
                                                            final Alliance alliance) {
         return builder.boardConfig.values().stream()

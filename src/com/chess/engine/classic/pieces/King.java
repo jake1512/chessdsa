@@ -14,7 +14,11 @@ import java.util.List;
 
 public final class King extends Piece {
 
+    /*  From the current piece's position, adding or subtracting these coordinates 
+        provides possible move positions, hence the name CANDIDATE_MOVE_COORDINATES
+    */
     private final static int[] CANDIDATE_MOVE_COORDINATES = { -9, -8, -7, -1, 1, 7, 8, 9 };
+    
     private final boolean isCastled;
     private final boolean kingSideCastleCapable;
     private final boolean queenSideCastleCapable;
@@ -61,13 +65,18 @@ public final class King extends Piece {
                 isEighthColumnExclusion(this.piecePosition, currentCandidateOffset)) {
                 continue;
             }
+
             final int candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
+            
+            // Verify if destination coordinate is valid
             if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 final Piece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
+                // If destination is not occupied
                 if (pieceAtDestination == null) {
                     legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                 } else {
                     final Alliance pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
+                    // If occupying piece is an enemy piece
                     if (this.pieceAlliance != pieceAtDestinationAllegiance) {
                         legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
                                 pieceAtDestination));
