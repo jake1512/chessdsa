@@ -67,6 +67,7 @@ public abstract class Player {
                                        .orElseThrow(RuntimeException::new);
     }
 
+    // check whether the player has a way to escape the checkmate
     private boolean hasEscapeMoves() {
         return this.legalMoves.stream()
                               .anyMatch(move -> makeMove(move)
