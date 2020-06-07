@@ -43,26 +43,26 @@ public final class Table extends Observable {
     private String pieceIconPath;
     private boolean highlightLegalMoves;
     private boolean useBook;
-    private Color lightTileColor = Color.decode("#FFFACD");
-    private Color darkTileColor = Color.decode("#593E1A");
+    private Color lightTileColor = Color.decode("#ffffdb");
+    private Color darkTileColor = Color.decode("#EB6565");
 
-    private static final Dimension OUTER_FRAME_DIMENSION = new Dimension(600, 600);
+    private static final Dimension OUTER_FRAME_DIMENSION = new Dimension(750, 750);
     private static final Dimension BOARD_PANEL_DIMENSION = new Dimension(400, 350);
     private static final Dimension TILE_PANEL_DIMENSION = new Dimension(10, 10);
 
     private static final Table INSTANCE = new Table();
 
     private Table() {
-        this.gameFrame = new JFrame("BlackWidow");
+        this.gameFrame = new JFrame("ChessDSA");
         final JMenuBar tableMenuBar = new JMenuBar();
         populateMenuBar(tableMenuBar);
         this.gameFrame.setJMenuBar(tableMenuBar);
         this.gameFrame.setLayout(new BorderLayout());
         this.chessBoard = Board.createStandardBoard();
         this.boardDirection = BoardDirection.NORMAL;
-        this.highlightLegalMoves = false;
+        this.highlightLegalMoves = true;
         this.useBook = false;
-        this.pieceIconPath = "art/holywarriors/";
+        this.pieceIconPath = "art/OOPchess/";
         this.gameHistoryPanel = new GameHistoryPanel();
         this.debugPanel = new DebugPanel();
         this.takenPiecesPanel = new TakenPiecesPanel();
@@ -355,7 +355,7 @@ public final class Table extends Observable {
 
 
         final JCheckBoxMenuItem cbLegalMoveHighlighter = new JCheckBoxMenuItem(
-                "Highlight Legal Moves", false);
+                "Highlight Legal Moves", true);
 
         cbLegalMoveHighlighter.addActionListener(e -> highlightLegalMoves = cbLegalMoveHighlighter.isSelected());
 
@@ -530,7 +530,7 @@ public final class Table extends Observable {
             }
             setPreferredSize(BOARD_PANEL_DIMENSION);
             setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            setBackground(Color.decode("#8B4726"));
+            setBackground(Color.decode("#FFD1DC"));
             validate();
         }
 
