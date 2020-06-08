@@ -34,7 +34,6 @@ public final class Rook extends Piece {
         final List<Move> legalMoves = new ArrayList<>();
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
 
-            //similar bishop move
             //because the length of the move may vary
             //each loop will increase the same CANDIDATE_MOVE_COORDINATES to create a move (like a vector) of difference length
             int candidateDestinationCoordinate = this.piecePosition;
