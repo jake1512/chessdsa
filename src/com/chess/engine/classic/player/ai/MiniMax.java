@@ -33,7 +33,7 @@ public final class MiniMax implements MoveStrategy {
     public long getNumBoardsEvaluated() {
         return this.boardsEvaluated;
     }
-
+    // find and execute the best move for bot
     public Move execute(final Board board) {
         final long startTime = System.currentTimeMillis();
         Move bestMove = MoveFactory.getNullMove();
@@ -85,7 +85,7 @@ public final class MiniMax implements MoveStrategy {
         }
         return bestMove;
     }
-
+    // find the minimum value among the child nodes of the parent node in each branch
     private int min(final Board board,
                     final int depth) {
         if(depth == 0) {
@@ -93,7 +93,7 @@ public final class MiniMax implements MoveStrategy {
             this.freqTable[this.freqTableIndex].increment();
             return this.evaluator.evaluate(board, depth);
         }
-        if(isEndGameScenario(board)) {
+        if(isEndGameScenario(board)) {                      // game over
             return this.evaluator.evaluate(board, depth);
         }
         int lowestSeenValue = Integer.MAX_VALUE;
@@ -108,7 +108,7 @@ public final class MiniMax implements MoveStrategy {
         }
         return lowestSeenValue;
     }
-
+    // find the maximum value among the child nodes of the parent node in each branch
     private int max(final Board board,
                     final int depth) {
         if(depth == 0) {
@@ -116,7 +116,7 @@ public final class MiniMax implements MoveStrategy {
             this.freqTable[this.freqTableIndex].increment();
             return this.evaluator.evaluate(board, depth);
         }
-        if(isEndGameScenario(board)) {
+        if(isEndGameScenario(board)) {                      // game over
             return this.evaluator.evaluate(board, depth);
         }
         int highestSeenValue = Integer.MIN_VALUE;
