@@ -19,6 +19,7 @@ public final class Bishop extends Piece {
     */
     private final static int[] CANDIDATE_MOVE_COORDINATES = {-9, -7, 7, 9};
 
+    //constructor for first move
     public Bishop(final Alliance alliance,
                   final int piecePosition) {
          super(PieceType.BISHOP, alliance, piecePosition, true);
@@ -35,13 +36,16 @@ public final class Bishop extends Piece {
         final List<Move> legalMoves = new ArrayList<>();
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
             int candidateDestinationCoordinate = this.piecePosition;
+
+            //Because the length of the move may vary	
+            //each loop will increase the same CANDIDATE_MOVE_COORDINATES to create a move (like a vector) of difference length
             while (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 if (isFirstColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate) ||
                     isEighthColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate)) {
                     break;
                 }
                 
-                candidateDestinationCoordinate += currentCandidateOffset;
+                candidateDestinationCoordinate += currentCandidateOffset;   // increase the length of the vector
                 
                 // Verify if destination coordinate is valid
                 if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
