@@ -299,8 +299,8 @@ public final class Table extends Observable {
         final JMenuItem abstractMenMenuItem = new JMenuItem("Abstract Men");
         chessMenChoiceSubMenu.add(abstractMenMenuItem);
 
-        final JMenuItem woodMenMenuItem = new JMenuItem("Wood Men");
-        chessMenChoiceSubMenu.add(woodMenMenuItem);
+        final JMenuItem cleanMenMenuItem = new JMenuItem("Clean Men");
+        chessMenChoiceSubMenu.add(cleanMenMenuItem);
 
         final JMenuItem fancyMenMenuItem = new JMenuItem("Fancy Men");
         chessMenChoiceSubMenu.add(fancyMenMenuItem);
@@ -308,9 +308,9 @@ public final class Table extends Observable {
         final JMenuItem fancyMenMenuItem2 = new JMenuItem("Fancy Men 2");
         chessMenChoiceSubMenu.add(fancyMenMenuItem2);
 
-        woodMenMenuItem.addActionListener(e -> {
-            System.out.println("implement me");
-            Table.get().getGameFrame().repaint();
+        cleanMenMenuItem.addActionListener(e -> {
+            pieceIconPath = "art/OOPchess/";
+            Table.get().getBoardPanel().drawBoard(chessBoard);
         });
 
         holyWarriorsMenuItem.addActionListener(e -> {
