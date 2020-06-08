@@ -97,7 +97,7 @@ class TakenPiecesPanel extends JPanel {
 
         for (final Piece takenPiece : blackTakenPieces) {
             try {
-                final BufferedImage image = ImageIO.read(new File("art/holywarriors/"
+                final BufferedImage image = ImageIO.read(new File("art/OOPchess/"
                         + takenPiece.getPieceAllegiance().toString().substring(0, 1) + "" + takenPiece.toString()
                         + ".gif"));
                 final ImageIcon ic = new ImageIcon(image);
