@@ -14,9 +14,11 @@ import java.util.List;
 
 public final class Bishop extends Piece {
 
+    /*  From the current piece's position, adding or subtracting these coordinates 
+        provides possible move positions, hence the name CANDIDATE_MOVE_COORDINATES
+    */
     private final static int[] CANDIDATE_MOVE_COORDINATES = {-9, -7, 7, 9};
 
-    //constructor for first move
     public Bishop(final Alliance alliance,
                   final int piecePosition) {
          super(PieceType.BISHOP, alliance, piecePosition, true);
@@ -33,23 +35,25 @@ public final class Bishop extends Piece {
         final List<Move> legalMoves = new ArrayList<>();
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
             int candidateDestinationCoordinate = this.piecePosition;
-
-            //Because the length of the move may vary
-            //each loop will increase the same CANDIDATE_MOVE_COORDINATES to create a move (like a vector) of difference length
             while (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 if (isFirstColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate) ||
                     isEighthColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate)) {
                     break;
                 }
-                candidateDestinationCoordinate += currentCandidateOffset; // increase the length of the vector
+                
+                candidateDestinationCoordinate += currentCandidateOffset;
+                
+                // Verify if destination coordinate is valid
                 if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                     final Piece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
+                    // If destination is not occupied
                     if (pieceAtDestination == null) {
                         legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                     }
                     else {
                         final Alliance pieceAlliance = pieceAtDestination.getPieceAllegiance();
-                        if (this.pieceAlliance != pieceAlliance) { // is enemy
+                        // If occupying piece is an enemy piece
+                        if (this.pieceAlliance != pieceAlliance) {
                             legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
                                     pieceAtDestination));
                         }
