@@ -35,7 +35,7 @@ public final class Queen extends Piece {
         final List<Move> legalMoves = new ArrayList<>();
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
             int candidateDestinationCoordinate = this.piecePosition;
-            //similar rook and bishop move
+           
             //because the length of the move may vary
             //each loop will increase the same CANDIDATE_MOVE_COORDINATES to create a move (like a vector) of difference length
             while (true) {
