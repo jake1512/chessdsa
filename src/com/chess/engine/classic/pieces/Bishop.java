@@ -19,7 +19,6 @@ public final class Bishop extends Piece {
     */
     private final static int[] CANDIDATE_MOVE_COORDINATES = {-9, -7, 7, 9};
 
-    //constructor for first move
     public Bishop(final Alliance alliance,
                   final int piecePosition) {
          super(PieceType.BISHOP, alliance, piecePosition, true);
