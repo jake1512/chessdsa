@@ -9,7 +9,7 @@ import com.google.common.annotations.VisibleForTesting;
 
 import static com.chess.engine.classic.pieces.Piece.PieceType.BISHOP;
     /*
-        Given the status of the match in each move 
+        Return the status of the match in each move 
     */
 public final class StandardBoardEvaluator
         implements BoardEvaluator {
