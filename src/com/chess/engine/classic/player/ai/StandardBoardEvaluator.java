@@ -34,7 +34,7 @@ public final class StandardBoardEvaluator
                         final int depth) {
         return score(board.whitePlayer(), depth) - score(board.blackPlayer(), depth);
     }
-
+    // Match's status
     public String evaluationDetails(final Board board, final int depth) {
         return
                ("White Mobility : " + mobility(board.whitePlayer()) + "\n") +
