@@ -285,6 +285,7 @@ public class BitBoardV2 {
     /*
         Consider bit positions for each cell on the piece.
         The 64 cells on the chessboard have each type of comparison and assign different and symmetric bit values.
+        Consider the simplest symmetry is to row by row.
     */
     @SuppressWarnings("NumericOverflow")
     private static List<Long> calculateKnightLookupTable() {
