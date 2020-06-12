@@ -4,7 +4,10 @@ import com.chess.engine.classic.board.BoardUtils;
 import com.chess.engine.classic.player.BlackPlayer;
 import com.chess.engine.classic.player.Player;
 import com.chess.engine.classic.player.WhitePlayer;
-
+/*
+    This one is an improved evaluation function.
+    To improve this, we add to the evaluation a factor that takes in accaount the position of the pieces.
+*/
 public enum Alliance {
 
     WHITE() {
@@ -169,6 +172,9 @@ public enum Alliance {
 
     public abstract Player choosePlayerByAlliance(final WhitePlayer whitePlayer, final BlackPlayer blackPlayer);
 
+    /*
+        We'll use a slightly adjusted version of piece-square tables that are originally described in the Chess Wiki.
+    */
     private final static int[] WHITE_PAWN_PREFERRED_COORDINATES = {
             0,  0,  0,  0,  0,  0,  0,  0,
             75, 75, 75, 75, 75, 75, 75, 75,
