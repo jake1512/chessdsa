@@ -6,7 +6,7 @@ import com.chess.engine.classic.player.Player;
 import com.chess.engine.classic.player.WhitePlayer;
 /*
     This one is an improved evaluation function.
-    To improve this, we add to the evaluation a factor that takes in accaount the position of the pieces.
+    To improve this, we add to the evaluation a factor that takes in account the position of the pieces.
 */
 public enum Alliance {
 
