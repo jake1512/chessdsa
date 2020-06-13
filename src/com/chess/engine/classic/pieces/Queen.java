@@ -35,7 +35,8 @@ public final class Queen extends Piece {
         final List<Move> legalMoves = new ArrayList<>();
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
             int candidateDestinationCoordinate = this.piecePosition;
-            //Because the length of the move may vary
+           
+            //because the length of the move may vary
             //each loop will increase the same CANDIDATE_MOVE_COORDINATES to create a move (like a vector) of difference length
             while (true) {
                 if (isFirstColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate) ||
@@ -43,9 +44,9 @@ public final class Queen extends Piece {
                     break;
                 }
                 
-                candidateDestinationCoordinate += currentCandidateOffset;
+                candidateDestinationCoordinate += currentCandidateOffset;   // increase the length of the vector
                 
-                // Verify if destination coordinate is valid
+                // candidate destination not valid
                 if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                     break;
                 } else {

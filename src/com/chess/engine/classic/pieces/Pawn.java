@@ -16,7 +16,7 @@ public final class Pawn extends Piece {
     /*  From the current piece's position, adding or subtracting these coordinates 
         provides possible move positions, hence the name CANDIDATE_MOVE_COORDINATES
     */
-    private final static int[] CANDIDATE_MOVE_COORDINATES = {8, 16, 7, 9};
+    private final static int[] CANDIDATE_MOVE_COORDINATES = {8, 16, 7, 9};  // cannot go backward
 
     public Pawn(final Alliance allegiance,
                 final int piecePosition) {
@@ -38,6 +38,8 @@ public final class Pawn extends Piece {
     public Collection<Move> calculateLegalMoves(final Board board) {
         final List<Move> legalMoves = new ArrayList<>();
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
+             // because the direction of movement of either is opposition 
+             // getDirection method is set in Alliance class with 1 for black and -1 for white
             int candidateDestinationCoordinate = this.piecePosition + (this.pieceAlliance.getDirection() * currentCandidateOffset);
             // If destination is invalid, skip
             if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
@@ -62,7 +64,7 @@ public final class Pawn extends Piece {
                 }
             }
             // Pawn move 2 steps forward
-            else if (currentCandidateOffset == 16 && this.isFirstMove() &&
+            else if (currentCandidateOffset == 16 && this.isFirstMove() &&  
                     ((BoardUtils.INSTANCE.SECOND_ROW.get(this.piecePosition) && this.pieceAlliance.isBlack()) ||
                      (BoardUtils.INSTANCE.SEVENTH_ROW.get(this.piecePosition) && this.pieceAlliance.isWhite()))) {
                 final int behindCandidateDestinationCoordinate =
@@ -75,12 +77,12 @@ public final class Pawn extends Piece {
             }
             // Pawn attack move
             else if (currentCandidateOffset == 7 &&
-                    !((BoardUtils.INSTANCE.EIGHTH_COLUMN.get(this.piecePosition) && this.pieceAlliance.isWhite()) ||
+                    !((BoardUtils.INSTANCE.EIGHTH_COLUMN.get(this.piecePosition) && this.pieceAlliance.isWhite()) ||    //out of bound
                       (BoardUtils.INSTANCE.FIRST_COLUMN.get(this.piecePosition) && this.pieceAlliance.isBlack()))) {
                 if(board.getPiece(candidateDestinationCoordinate) != null) {
                     final Piece pieceOnCandidate = board.getPiece(candidateDestinationCoordinate);
                     if (this.pieceAlliance != pieceOnCandidate.getPieceAllegiance()) {
-                        if (this.pieceAlliance.isPawnPromotionSquare(candidateDestinationCoordinate)) {
+                        if (this.pieceAlliance.isPawnPromotionSquare(candidateDestinationCoordinate)) {     //pawn in bottom row, execute Promotion
                             legalMoves.add(new PawnPromotion(
                                     new PawnAttackMove(board, this, candidateDestinationCoordinate, pieceOnCandidate), PieceUtils.INSTANCE.getMovedQueen(this.pieceAlliance, candidateDestinationCoordinate)));
                             legalMoves.add(new PawnPromotion(

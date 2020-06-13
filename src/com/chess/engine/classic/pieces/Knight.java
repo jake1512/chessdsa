@@ -19,6 +19,7 @@ public final class Knight extends Piece {
     */
     private final static int[] CANDIDATE_MOVE_COORDINATES = { -17, -15, -10, -6, 6, 10, 15, 17 };
 
+    //constructor for first move
     public Knight(final Alliance alliance,
                   final int piecePosition) {
         super(PieceType.KNIGHT, alliance, piecePosition, true);
@@ -35,7 +36,7 @@ public final class Knight extends Piece {
         final List<Move> legalMoves = new ArrayList<>();
 
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
-            if(isFirstColumnExclusion(this.piecePosition, currentCandidateOffset) ||
+            if(isFirstColumnExclusion(this.piecePosition, currentCandidateOffset) ||    //candidate move out of bound
                isSecondColumnExclusion(this.piecePosition, currentCandidateOffset) ||
                isSeventhColumnExclusion(this.piecePosition, currentCandidateOffset) ||
                isEighthColumnExclusion(this.piecePosition, currentCandidateOffset)) {
@@ -48,7 +49,7 @@ public final class Knight extends Piece {
             if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 final Piece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
                 // If destination is not occupied
-                if (pieceAtDestination == null) {
+                if (pieceAtDestination == null) {   
                     legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                 } else {
                     final Alliance pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
