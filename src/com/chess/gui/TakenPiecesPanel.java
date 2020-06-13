@@ -33,6 +33,7 @@ class TakenPiecesPanel extends JPanel {
     private static final Dimension TAKEN_PIECES_PANEL_DIMENSION = new Dimension(40, 80);
     private static final EtchedBorder PANEL_BORDER = new EtchedBorder(EtchedBorder.RAISED);
 
+    //initialize TakenPiecesPanel constructor
     public TakenPiecesPanel() {
         super(new BorderLayout());
         setBackground(Color.decode("0xFDF5E6"));
@@ -66,6 +67,7 @@ class TakenPiecesPanel extends JPanel {
             }
         }
 
+        //Sort pieces in the taken pieces panel
         Collections.sort(whiteTakenPieces, new Comparator<Piece>() {
             @Override
             public int compare(final Piece p1, final Piece p2) {
@@ -80,6 +82,7 @@ class TakenPiecesPanel extends JPanel {
             }
         });
         
+        // adding icons for white pieces
         for (final Piece takenPiece : whiteTakenPieces) {
             try {
                 final BufferedImage image = ImageIO.read(new File("art/OOPchess/"
@@ -95,6 +98,7 @@ class TakenPiecesPanel extends JPanel {
             }
         }
 
+        // adding icons for black pieces
         for (final Piece takenPiece : blackTakenPieces) {
             try {
                 final BufferedImage image = ImageIO.read(new File("art/OOPchess/"
