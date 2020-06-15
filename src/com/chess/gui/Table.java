@@ -268,9 +268,9 @@ public final class Table extends Observable {
         final JMenuItem chooseLightMenuItem = new JMenuItem("Choose Light Tile Color");
         colorChooserSubMenu.add(chooseLightMenuItem);
 
-        final JMenuItem chooseLegalHighlightMenuItem = new JMenuItem(
-                "Choose Legal Move Highlight Color");
-        colorChooserSubMenu.add(chooseLegalHighlightMenuItem);
+        // final JMenuItem chooseLegalHighlightMenuItem = new JMenuItem(
+        //         "Choose Legal Move Highlight Color");
+        // colorChooserSubMenu.add(chooseLegalHighlightMenuItem);
 
         preferencesMenu.add(colorChooserSubMenu);
 
@@ -326,10 +326,10 @@ public final class Table extends Observable {
 
         preferencesMenu.add(chessMenChoiceSubMenu);
 
-        chooseLegalHighlightMenuItem.addActionListener(e -> {
-            System.out.println("implement me");
-            Table.get().getGameFrame().repaint();
-        });
+        // chooseLegalHighlightMenuItem.addActionListener(e -> {
+        //     System.out.println("implement me");
+        //     Table.get().getGameFrame().repaint();
+        // });
 
         final JMenuItem flipBoardMenuItem = new JMenuItem("Flip board");
 
@@ -707,7 +707,7 @@ public final class Table extends Observable {
             if(humanMovedPiece != null &&
                humanMovedPiece.getPieceAllegiance() == board.currentPlayer().getAlliance() &&
                humanMovedPiece.getPiecePosition() == this.tileId) {
-                setBorder(BorderFactory.createLineBorder(Color.cyan));
+                setBorder(BorderFactory.createLineBorder(Color.green));
             } else {
                 setBorder(BorderFactory.createLineBorder(Color.GRAY));
             }
@@ -745,6 +745,7 @@ public final class Table extends Observable {
             return Collections.emptyList();
         }
 
+        // Get piece image in the directory and show them on the board
         private void assignTilePieceIcon(final Board board) {
             this.removeAll();
             if(board.getPiece(this.tileId) != null) {
