@@ -46,12 +46,14 @@ public final class Table extends Observable {
     private Color lightTileColor = Color.decode("#ffffdb");
     private Color darkTileColor = Color.decode("#EB6565");
 
+    // Dimension setup
     private static final Dimension OUTER_FRAME_DIMENSION = new Dimension(750, 750);
     private static final Dimension BOARD_PANEL_DIMENSION = new Dimension(400, 350);
     private static final Dimension TILE_PANEL_DIMENSION = new Dimension(10, 10);
 
     private static final Table INSTANCE = new Table();
 
+    // Table constructor
     private Table() {
         this.gameFrame = new JFrame("ChessDSA");
         final JMenuBar tableMenuBar = new JMenuBar();
@@ -152,7 +154,7 @@ public final class Table extends Observable {
         final JMenu filesMenu = new JMenu("File");
         filesMenu.setMnemonic(KeyEvent.VK_F);
 
-        final JMenuItem openPGN = new JMenuItem("Load PGN File", KeyEvent.VK_O);
+        /*final JMenuItem openPGN = new JMenuItem("Load PGN File", KeyEvent.VK_O);
         openPGN.addActionListener(e -> {
             JFileChooser chooser = new JFileChooser();
             int option = chooser.showOpenDialog(Table.get().getGameFrame());
@@ -191,7 +193,7 @@ public final class Table extends Observable {
                 savePGNFile(chooser.getSelectedFile());
             }
         });
-        filesMenu.add(saveToPGN);
+        filesMenu.add(saveToPGN);*/
 
         final JMenuItem exitMenuItem = new JMenuItem("Exit", KeyEvent.VK_X);
         exitMenuItem.addActionListener(e -> {
@@ -266,9 +268,9 @@ public final class Table extends Observable {
         final JMenuItem chooseLightMenuItem = new JMenuItem("Choose Light Tile Color");
         colorChooserSubMenu.add(chooseLightMenuItem);
 
-        final JMenuItem chooseLegalHighlightMenuItem = new JMenuItem(
-                "Choose Legal Move Highlight Color");
-        colorChooserSubMenu.add(chooseLegalHighlightMenuItem);
+        // final JMenuItem chooseLegalHighlightMenuItem = new JMenuItem(
+        //         "Choose Legal Move Highlight Color");
+        // colorChooserSubMenu.add(chooseLegalHighlightMenuItem);
 
         preferencesMenu.add(colorChooserSubMenu);
 
@@ -293,9 +295,6 @@ public final class Table extends Observable {
         final JMenuItem holyWarriorsMenuItem = new JMenuItem("Holy Warriors");
         chessMenChoiceSubMenu.add(holyWarriorsMenuItem);
 
-        final JMenuItem rockMenMenuItem = new JMenuItem("Rock Men");
-        chessMenChoiceSubMenu.add(rockMenMenuItem);
-
         final JMenuItem abstractMenMenuItem = new JMenuItem("Abstract Men");
         chessMenChoiceSubMenu.add(abstractMenMenuItem);
 
@@ -304,9 +303,6 @@ public final class Table extends Observable {
 
         final JMenuItem fancyMenMenuItem = new JMenuItem("Fancy Men");
         chessMenChoiceSubMenu.add(fancyMenMenuItem);
-
-        final JMenuItem fancyMenMenuItem2 = new JMenuItem("Fancy Men 2");
-        chessMenChoiceSubMenu.add(fancyMenMenuItem2);
 
         cleanMenMenuItem.addActionListener(e -> {
             pieceIconPath = "art/OOPchess/";
@@ -318,16 +314,8 @@ public final class Table extends Observable {
             Table.get().getBoardPanel().drawBoard(chessBoard);
         });
 
-        rockMenMenuItem.addActionListener(e -> {
-        });
-
         abstractMenMenuItem.addActionListener(e -> {
             pieceIconPath = "art/simple/";
-            Table.get().getBoardPanel().drawBoard(chessBoard);
-        });
-
-        fancyMenMenuItem2.addActionListener(e -> {
-            pieceIconPath = "art/fancy2/";
             Table.get().getBoardPanel().drawBoard(chessBoard);
         });
 
@@ -338,10 +326,10 @@ public final class Table extends Observable {
 
         preferencesMenu.add(chessMenChoiceSubMenu);
 
-        chooseLegalHighlightMenuItem.addActionListener(e -> {
-            System.out.println("implement me");
-            Table.get().getGameFrame().repaint();
-        });
+        // chooseLegalHighlightMenuItem.addActionListener(e -> {
+        //     System.out.println("implement me");
+        //     Table.get().getGameFrame().repaint();
+        // });
 
         final JMenuItem flipBoardMenuItem = new JMenuItem("Flip board");
 
@@ -360,13 +348,6 @@ public final class Table extends Observable {
         cbLegalMoveHighlighter.addActionListener(e -> highlightLegalMoves = cbLegalMoveHighlighter.isSelected());
 
         preferencesMenu.add(cbLegalMoveHighlighter);
-
-        final JCheckBoxMenuItem cbUseBookMoves = new JCheckBoxMenuItem(
-                "Use Book Moves", false);
-
-        cbUseBookMoves.addActionListener(e -> useBook = cbUseBookMoves.isSelected());
-
-        preferencesMenu.add(cbUseBookMoves);
 
         return preferencesMenu;
 
@@ -516,13 +497,16 @@ public final class Table extends Observable {
         }
     }
 
+    // Create board panel
     private class BoardPanel extends JPanel {
 
         final List<TilePanel> boardTiles;
 
+        // Constructor
         BoardPanel() {
             super(new GridLayout(8,8));
             this.boardTiles = new ArrayList<>();
+            // Add 64 tiles into the board
             for (int i = 0; i < BoardUtils.NUM_TILES; i++) {
                 final TilePanel tilePanel = new TilePanel(this, i);
                 this.boardTiles.add(tilePanel);
@@ -534,6 +518,7 @@ public final class Table extends Observable {
             validate();
         }
 
+        // Draw the board on the panel 
         void drawBoard(final Board board) {
             removeAll();
             for (final TilePanel boardTile : boardDirection.traverse(boardTiles)) {
@@ -591,6 +576,7 @@ public final class Table extends Observable {
 
     }
 
+    // Keep track of all moves on the actual game board
     public static class MoveLog {
 
         private final List<Move> moves;
@@ -625,6 +611,7 @@ public final class Table extends Observable {
 
     }
 
+    // Define tiles on the board
     private class TilePanel extends JPanel {
 
         private final int tileId;
@@ -720,7 +707,7 @@ public final class Table extends Observable {
             if(humanMovedPiece != null &&
                humanMovedPiece.getPieceAllegiance() == board.currentPlayer().getAlliance() &&
                humanMovedPiece.getPiecePosition() == this.tileId) {
-                setBorder(BorderFactory.createLineBorder(Color.cyan));
+                setBorder(BorderFactory.createLineBorder(Color.green));
             } else {
                 setBorder(BorderFactory.createLineBorder(Color.GRAY));
             }
@@ -758,6 +745,7 @@ public final class Table extends Observable {
             return Collections.emptyList();
         }
 
+        // Get piece image in the directory and show them on the board
         private void assignTilePieceIcon(final Board board) {
             this.removeAll();
             if(board.getPiece(this.tileId) != null) {
@@ -773,6 +761,7 @@ public final class Table extends Observable {
             }
         }
 
+        // assign light and dark tile color
         private void assignTileColor() {
             if (BoardUtils.INSTANCE.FIRST_ROW.get(this.tileId) ||
                 BoardUtils.INSTANCE.THIRD_ROW.get(this.tileId) ||
