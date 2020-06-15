@@ -8,7 +8,9 @@ import com.chess.engine.classic.player.ai.KingSafetyAnalyzer.KingDistance;
 import com.google.common.annotations.VisibleForTesting;
 
 import static com.chess.engine.classic.pieces.Piece.PieceType.BISHOP;
-
+    /*
+        Return the status of the match in each move 
+    */
 public final class StandardBoardEvaluator
         implements BoardEvaluator {
 
@@ -32,7 +34,7 @@ public final class StandardBoardEvaluator
                         final int depth) {
         return score(board.whitePlayer(), depth) - score(board.blackPlayer(), depth);
     }
-
+    // Match's status
     public String evaluationDetails(final Board board, final int depth) {
         return
                ("White Mobility : " + mobility(board.whitePlayer()) + "\n") +

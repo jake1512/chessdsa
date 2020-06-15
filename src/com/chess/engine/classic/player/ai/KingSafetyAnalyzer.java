@@ -9,7 +9,10 @@ import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+/*
+    Analyze King's status is safe or in check
 
+*/
 public final class KingSafetyAnalyzer {
 
     private static final KingSafetyAnalyzer INSTANCE = new KingSafetyAnalyzer();
